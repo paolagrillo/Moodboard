@@ -23,6 +23,10 @@ export default function Home() {
     setFogli((prev) => [...prev, prev.length + 1]);
   }
 
+  function eliminaFoglio(id: number) {
+    setFogli((prev) => prev.filter((foglio) => foglio !== id));
+  }
+
   return (
     <main className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-12 p-8">
       <div
@@ -35,13 +39,33 @@ export default function Home() {
 {fogli.map((foglio) => {
   const testoSalvato = localStorage.getItem(`foglio-${foglio}`) || "";
   return (
+    <div key={foglio} className="relative">
     <a key={foglio} href={`/foglio/${foglio}`} className="w-64 h-96 p-2 bg-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center cursor-pointer">
       <p className="text-sm text-[var(--foreground)] line-clamp-4 p-2">
         {testoSalvato || "Foglio vuoto"}
       </p>
     </a>
+<button onClick={() => eliminaFoglio(foglio)}
+  className="absolute top-2 right-2 bg-[var(--danger)] text-black w-6 h-6 rounded-full flex items-center justify-center">X</button>
+    </div>
   );
 })}
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
